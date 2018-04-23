@@ -76,6 +76,7 @@ window.addEventListener( 'DOMContentLoaded',  function () {
 	ourCandidateSex.classList.add( 'sex' );
 	ourCandidateViews.classList.add( 'views' );
 	ourCandidateBio.classList.add( 'bio' );
+	ourCandidateBio.style.wordWrap = 'break-word';	
 
 	
 	

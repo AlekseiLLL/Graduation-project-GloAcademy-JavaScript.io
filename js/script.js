@@ -695,6 +695,13 @@ window.addEventListener( 'DOMContentLoaded',  function () {
 	// Провести выборы
 
 	let voting = document.getElementById( 'voting' ),
+		firstCandidatePercent = 0,
+		secondCandidatePercent = 0,
+		ourCandidatePercent = 0,
+		sum = 100,
+		first = 0,
+		second = 0,
+		our = 0,
 		resultCounts = [firstCandidateResultCount, secondCandidateResultCount, ourCandidateResultCount],
 		progressBars = [firstCandidateProgressBar, secondCandidateProgressBar, ourCandidateProgressBar];
 		
@@ -705,111 +712,50 @@ window.addEventListener( 'DOMContentLoaded',  function () {
 		secondCandidate.classList.remove( 'main-cards-item-active' );
 		ourCandidate.classList.remove( 'main-cards-item-active' );
 
-		// Рандом
+	// 	// Рандом
 
-	// Определяем победителя 
-		let winner = Math.floor( Math.random() * ( 3 - 1 + 1 )) + 1,
-	// Ищем его рандомный процент больше 50, чтобы кандидата засчитали избранным
-			persentRandWinner = Math.floor( Math.random() * ( 100 - 50 + 1 )) + 50;
-	// Если победил кандидат под номером 1
-		if ( winner === 1 ) {
-		// То считаем кто занял второе место с двух оставшихся
-			let secondPlace = Math.floor(Math.random() * ( 2 - 1 + 1 )) + 1,
-		// Считаем процент для второго места
-				persentRandSecondPlace = Math.floor( Math.random() * (( 100 - persentRandWinner ) - 0 + 1 )) + 0;
-		// Записываем результат в карточу победителя
-			resultCounts[0].textContent = persentRandWinner + '%';
-			progressBars[0].style.height = persentRandWinner + '%';
-			firstCandidate.classList.add( 'main-cards-item-active' );
-		// Если второе место занял кандидат под номером 2
-			if ( secondPlace === 1 ) {
-			// Считаем оставшийся процент
-				let persentThirdPlace = Math.floor(( 100 - persentRandWinner) - persentRandSecondPlace );
-			// Записываем результат в карточку кандидата, занявшего второе место	
-				resultCounts[1].textContent = persentRandSecondPlace + '%';
-				progressBars[1].style.height = persentRandSecondPlace + '%';
-			// Присваиваем кандидату под номером 3 оставшийся процент 
-				resultCounts[2].textContent = persentThirdPlace + '%';
-				progressBars[2].style.height = persentThirdPlace + '%';
-			} else if ( secondPlace === 2 ) {
-			// Считаем оставшийся процент
-				let persentThirdPlace = Math.floor(( 100 - persentRandWinner) - persentRandSecondPlace );
-			// Записываем результат в карточку кандидата, занявшего второе место		
-				resultCounts[2].textContent = persentRandSecondPlace + '%';
-				progressBars[2].style.height = persentRandSecondPlace + '%';
-			// Присваиваем кандидату под номером 2 оставшийся процент 
-				resultCounts[1].textContent = persentThirdPlace + '%';
-				progressBars[1].style.height = persentThirdPlace + '%';
-			}
-	// Если победил кандидат под номером 2
-		} else if ( winner === 2 ) {
-		// То считаем кто занял второе место с двух оставшихся
-			let secondPlace = Math.floor( Math.random() * ( 2 - 1 + 1 )) + 1,
-		// Считаем процент для второго места
-				persentRandSecondPlace = Math.floor( Math.random() * (( 100 - persentRandWinner ) - 0 + 1 )) + 0;
-		// Записываем результат в карточу победителя
-			resultCounts[1].textContent = persentRandWinner + '%';
-			progressBars[1].style.height = persentRandWinner + '%';
-			secondCandidate.classList.add( 'main-cards-item-active' );
-		// Если второе место занял кандидат под номером 2
-			if ( secondPlace === 1 ) {
-			// Считаем оставшийся процент
-				let persentThirdPlace = Math.floor(( 100 - persentRandWinner) - persentRandSecondPlace );
-			// Записываем результат в карточку кандидата, занявшего второе место	
-				resultCounts[0].textContent = persentRandSecondPlace + '%';
-				progressBars[0].style.height = persentRandSecondPlace + '%';
-			// Присваиваем кандидату под номером 3 оставшийся процент 
-				resultCounts[2].textContent = persentThirdPlace + '%';
-				progressBars[2].style.height = persentThirdPlace + '%';
-			} else if ( secondPlace === 2 ) {
-			// Считаем оставшийся процент
-				let persentThirdPlace = Math.floor(( 100 - persentRandWinner) - persentRandSecondPlace );
-			// Записываем результат в карточку кандидата, занявшего второе место		
-				resultCounts[2].textContent = persentRandSecondPlace + '%';
-				progressBars[2].style.height = persentRandSecondPlace + '%';
-			// Присваиваем кандидату под номером 1 оставшийся процент 
-				resultCounts[0].textContent = persentThirdPlace + '%';
-				progressBars[0].style.height = persentThirdPlace + '%';
-			}
-	// Если победил кандидат под номером 3
-		} else if ( winner === 3 ) {
-		// То считаем кто занял второе место с двух оставшихся
-			let secondPlace = Math.floor( Math.random() * ( 2 - 1 + 1 )) + 1,
-		// Считаем процент для второго места
-				persentRandSecondPlace = Math.floor( Math.random() * (( 100 - persentRandWinner ) - 0 + 1 )) + 0;
-		// Записываем результат в карточу победителя
-			resultCounts[2].textContent = persentRandWinner + '%';
-			progressBars[2].style.height = persentRandWinner + '%';
-			ourCandidate.classList.add( 'main-cards-item-active' );
-		// Если второе место занял кандидат под номером 2
-			if ( secondPlace === 1 ) {
-			// Считаем оставшийся процент
-				let persentThirdPlace = Math.floor(( 100 - persentRandWinner) - persentRandSecondPlace );
-			// Записываем результат в карточку кандидата, занявшего второе место	
-				resultCounts[0].textContent = persentRandSecondPlace + '%';
-				progressBars[0].style.height = persentRandSecondPlace + '%';
-			// Присваиваем кандидату под номером 3 оставшийся процент 
-				resultCounts[1].textContent = persentThirdPlace + '%';
-				progressBars[1].style.height = persentThirdPlace + '%';
-			} else if ( secondPlace === 2 ) {
-			// Считаем оставшийся процент
-				let persentThirdPlace = Math.floor(( 100 - persentRandWinner) - persentRandSecondPlace );
-			// Записываем результат в карточку кандидата, занявшего второе место		
-				resultCounts[1].textContent = persentRandSecondPlace + '%';
-				progressBars[1].style.height = persentRandSecondPlace + '%';
-			// Присваиваем кандидату под номером 1 оставшийся процент 
-				resultCounts[0].textContent = persentThirdPlace + '%';
-				progressBars[0].style.height = persentThirdPlace + '%';
-			}
+		// Перебирать все возможные варианты, пока сумма процентов кандидатов не будет равна 100  
+		while (( firstCandidatePercent + secondCandidatePercent + ourCandidatePercent ) !== sum ) {
+	// Задаем диапазон от 0 до 100
+			firstCandidatePercent = 0 + Math.random() * ( 100 + 1 - 0 );
+    		firstCandidatePercent = Math.floor( firstCandidatePercent );
+    		first = firstCandidatePercent;
+    		secondCandidatePercent = 0 + Math.random() * ( 100 + 1 - 0 );
+    		secondCandidatePercent = Math.floor( secondCandidatePercent );
+    		second = secondCandidatePercent;
+    		ourCandidatePercent = 0 + Math.random() * ( 100 + 1 - 0 );
+    		ourCandidatePercent = Math.floor( ourCandidatePercent );
+    		our = ourCandidatePercent;
 		}
+	// Вывод процентов
+		resultCounts[0].textContent = firstCandidatePercent + '%';
+		progressBars[0].style.height = firstCandidatePercent + '%';
+
+		resultCounts[1].textContent = secondCandidatePercent + '%';
+		progressBars[1].style.height = secondCandidatePercent + '%';
+
+		resultCounts[2].textContent = ourCandidatePercent + '%';
+		progressBars[2].style.height = ourCandidatePercent + '%';
+
+	// Находим победителя
+
+		if (( firstCandidatePercent > secondCandidatePercent ) && ( firstCandidatePercent > ourCandidatePercent )) {
+			firstCandidate.classList.add( 'main-cards-item-active' );
+		} else if ( ( secondCandidatePercent > firstCandidatePercent ) && ( secondCandidatePercent > ourCandidatePercent ) ) {
+			secondCandidate.classList.add( 'main-cards-item-active' );
+		} else if ( ( ourCandidatePercent > firstCandidatePercent ) && ( ourCandidatePercent > secondCandidatePercent ) ) {
+			ourCandidate.classList.add( 'main-cards-item-active' );
+		}
+
+		firstCandidatePercent = 0;
+		secondCandidatePercent = 0;
+		ourCandidatePercent = 0;
+
 	});
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 // Вмешаться в выборы
-	let crime = document.getElementById( 'crime' ),
-		firstCandidateBasicPercent = 0,
-		secondCandidateBasicPercent = 0,
-		ourCandidateBasicPercent = 25,
-		sum = 100;
+	let crime = document.getElementById( 'crime' );
 
 	crime.addEventListener( 'click', function () {
 
@@ -817,41 +763,92 @@ window.addEventListener( 'DOMContentLoaded',  function () {
 		secondCandidate.classList.remove( 'main-cards-item-active' );
 		ourCandidate.classList.remove( 'main-cards-item-active' );
 
+	// Проверка на второе подряд вмешательство в выборы
+		if (( first && second ) === 0 ) {
 
-	// Плохой вариант - перебирать все возможные варианты, пока сумма процентов кандидатов не будет равна 100  
-		while (( firstCandidateBasicPercent + secondCandidateBasicPercent + ourCandidateBasicPercent ) !== sum ) {
-	// Задаем диапазон от 0 до 100
-			firstCandidateBasicPercent = 0 + Math.random() * ( 100 + 1 - 0 );
-    		firstCandidateBasicPercent = Math.floor( firstCandidateBasicPercent );
-    		secondCandidateBasicPercent = 0 + Math.random() * ( 100 + 1 - 0 );
-    		secondCandidateBasicPercent = Math.floor( secondCandidateBasicPercent );
-    // Задаем диапазон от 25 до 100 для нашего кандидата
-    		ourCandidateBasicPercent = 25 + Math.random() * ( 100 + 1 - 25 );
-    		ourCandidateBasicPercent = Math.floor( ourCandidateBasicPercent );
-		}
-	// Вывод процентов
-		resultCounts[0].textContent = firstCandidateBasicPercent + '%';
-		progressBars[0].style.height = firstCandidateBasicPercent + '%';
+			first = 0;
+			second = 0;
+			our = 0;
+			firstCandidate.classList.remove( 'main-cards-item-active' );
+			secondCandidate.classList.remove( 'main-cards-item-active' );
+			ourCandidate.classList.remove( 'main-cards-item-active' );
 
-		resultCounts[1].textContent = secondCandidateBasicPercent + '%';
-		progressBars[1].style.height = secondCandidateBasicPercent + '%';
+		// Вывод процентов
+			resultCounts[0].textContent = first + '%';
+			progressBars[0].style.height = first + '%';
+			resultCounts[1].textContent = second + '%';
+			progressBars[1].style.height = second + '%';
+			resultCounts[2].textContent = our + '%';
+			progressBars[2].style.height = our + '%';
+			alert( 'Сначала Вы должны проголосовать!' );
+		} else {
+		// Ищем случайную первую часть от 25 
+			let firstPartOf25 = Math.floor( 13 + Math.random() * ( 25 + 1 - 13 )),
+		// Ищем вторую часть от 25 
+				secondPartOf25 = 25 - firstPartOf25;
+			// Если процент нашего кандидата < или равно 75
+			if ( our <= 75 ) {
+		// Если первый + второй проценты больше 25 
+				if (( first + second ) >= 25 ) {
+				// Если первый больше первой части от 25 и второй больше второй части
+					if (( first >= firstPartOf25 ) && ( second >= secondPartOf25 )) {
+					// Присваиваем им части от 25
+						first -= firstPartOf25;
+						second -= secondPartOf25;
+					// Присваиваем нашему кандидату + 25
+						our += 25;
+				// Если второй больше первой части от 25 и первый больше второй части
+					} else if (( second >= firstPartOf25 ) && ( first >= secondPartOf25 )) {
+					// Присваиваем им части от 25
+						second -= firstPartOf25;
+						first -= secondPartOf25;
+					// Присваиваем нашему кандидату + 25
+						our += 25;
+				// Если первый меньше первой или второй части от 25 
+					} else if ( first < firstPartOf25 || first <= secondPartOf25 ) {
+					// Отнимаем у второго 25
+						second -= 25;
+					// Присваиваем нашему кандидату + 25
+						our += 25;
+				// Если второй меньше первой или второй части от 25
+					} else {
+					// Отнимаем у первого 25
+						first -= 25;
+					// Присваиваем нашему кандидату + 25
+						our += 25;
+					}
+				} else {
+					first = 0;
+					second = 0;
+					our = 100;
+				}
+			} else {
+				first = 0;
+				second = 0;
+				our = 100;
+			}
+		// Вывод процентов
+			resultCounts[0].textContent = first + '%';
+			progressBars[0].style.height = first + '%';
 
-		resultCounts[2].textContent = ourCandidateBasicPercent + '%';
-		progressBars[2].style.height = ourCandidateBasicPercent + '%';
+			resultCounts[1].textContent = second + '%';
+			progressBars[1].style.height = second + '%';
 
-	// Находим победителя
+			resultCounts[2].textContent = our + '%';
+			progressBars[2].style.height = our + '%';
 
-		if (( firstCandidateBasicPercent > secondCandidateBasicPercent ) && ( firstCandidateBasicPercent > ourCandidateBasicPercent )) {
-			firstCandidate.classList.add( 'main-cards-item-active' );
-		} else if ( ( secondCandidateBasicPercent > firstCandidateBasicPercent ) && ( secondCandidateBasicPercent > ourCandidateBasicPercent ) ) {
-			secondCandidate.classList.add( 'main-cards-item-active' );
-		} else if ( ( ourCandidateBasicPercent > firstCandidateBasicPercent ) && ( ourCandidateBasicPercent > secondCandidateBasicPercent ) ) {
-			ourCandidate.classList.add( 'main-cards-item-active' );
-		}
+		// Находим победителя
 
-		firstCandidateBasicPercent = 0;
-		secondCandidateBasicPercent = 0;
-		ourCandidateBasicPercent = 25;
+			if (( first > second ) && ( first > our )) {
+				firstCandidate.classList.add( 'main-cards-item-active' );
+			} else if ( ( second > first ) && ( second > our ) ) {
+				secondCandidate.classList.add( 'main-cards-item-active' );
+			} else if ( ( our > first ) && ( our > second ) ) {
+				ourCandidate.classList.add( 'main-cards-item-active' );
+			}
+		} 
+		first = 0;
+		second = 0;
+		our = 0;
 	});
-
 });

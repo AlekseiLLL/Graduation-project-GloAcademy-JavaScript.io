@@ -535,8 +535,9 @@ window.addEventListener( 'DOMContentLoaded',  function () {
 		// Контрольные проверки данных
 
 		// Проверки на пустоту и пробел в поле имени кандидата
-		if ( getCandidateName.value.length == '' || getCandidateName.value.length == ' ' ) {
+		if ( getCandidateName.value.length == '' || getCandidateName.value.length == ' ' || getCandidateName.value.length < 5 ) {
 			getCandidateName.style.border = '2px solid red';
+			nameLabel.textContent = 'Имя должно быть больше 5 символов';
 		// Проверки на пустоту и границы возраста
 		} else if ( getCandidateAge.value == '' || (( getCandidateAge.value - 0) < 35) || (( getCandidateAge.value - 0 ) > 80 )) {
 			getCandidateAge.style.border = '2px solid red';

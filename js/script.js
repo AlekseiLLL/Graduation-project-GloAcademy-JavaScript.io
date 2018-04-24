@@ -105,8 +105,7 @@ window.addEventListener( 'DOMContentLoaded',  function () {
 	getCandidateName.addEventListener( 'keyup', function () {
 		
 	// Регулярное выражения для ввода имени кандидата
-		//let regExpName = /[А-яЁё\s]$/i;
-		let regExpName = /[^А-яЁ]*$/i;
+		let regExpName = /[А-яЁё\s]$/i;
 	// Проверка на соответствие регулярному выражению
 		if ( getCandidateName.value.match( regExpName )) {
 		// Длина строки не больше 50 символов

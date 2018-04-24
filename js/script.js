@@ -105,7 +105,8 @@ window.addEventListener( 'DOMContentLoaded',  function () {
 	getCandidateName.addEventListener( 'keyup', function () {
 		
 	// Регулярное выражения для ввода имени кандидата
-		let regExpName = /[А-яЁё\s]$/i;
+		//let regExpName = /[А-яЁё\s]$/i;
+		let regExpName = /[^А-яЁ]*$/i;
 	// Проверка на соответствие регулярному выражению
 		if ( getCandidateName.value.match( regExpName )) {
 		// Длина строки не больше 50 символов
@@ -498,9 +499,6 @@ window.addEventListener( 'DOMContentLoaded',  function () {
 		plussClothesSlides(1);
 	});
 
-
-
-
 //////////////////////////////////////////////////////
 
 // Обнуление результатов
@@ -534,10 +532,11 @@ window.addEventListener( 'DOMContentLoaded',  function () {
 
 		// Контрольные проверки данных
 
-		// Проверки на пустоту и пробел в поле имени кандидата
-		if ( getCandidateName.value.length == '' || getCandidateName.value.length == ' ' || getCandidateName.value.length < 5 ) {
-			getCandidateName.style.border = '2px solid red';
-			nameLabel.textContent = 'Имя должно быть больше 5 символов';
+		let regExpName = /\s{2}/;
+		// Проверки на пустоту, пробел и длину имени не меньше 5 символов в поле имени кандидата
+		if ( getCandidateName.value.length == '' || getCandidateName.value.length == ' ' || getCandidateName.value.length < 6 || getCandidateName.value.match( regExpName )) {
+				getCandidateName.style.border = '2px solid red';
+				nameLabel.textContent = 'Имя должно быть больше 5 символов';
 		// Проверки на пустоту и границы возраста
 		} else if ( getCandidateAge.value == '' || (( getCandidateAge.value - 0) < 35) || (( getCandidateAge.value - 0 ) > 80 )) {
 			getCandidateAge.style.border = '2px solid red';
